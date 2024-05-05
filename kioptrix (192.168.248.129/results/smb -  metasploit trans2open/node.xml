@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+<version>6</version>
+<dict>
+  <key>title</key><string>SMB -  Metasploit: trans2open</string>
+  <key>nodeid</key><string>135bb3f3-f7ca-44fe-b431-04c70288dde1</string>
+  <key>modified_time</key><integer>1708928276</integer>
+  <key>version</key><integer>6</integer>
+  <key>content_type</key><string>text/xhtml+xml</string>
+  <key>created_time</key><integer>1708927952</integer>
+  <key>info_sort_dir</key><integer>1</integer>
+  <key>order</key><integer>9</integer>
+  <key>info_sort</key><string>order</string>
+</dict>
+</node>

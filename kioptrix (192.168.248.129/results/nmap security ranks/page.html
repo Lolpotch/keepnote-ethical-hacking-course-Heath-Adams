@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Nmap Security Ranks</title>
+</head><body>──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ nmap -p443 --script=ssl-enum-ciphers 192.168.248.129<br/>
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-03-05 15:24 WIB<br/>
+Nmap scan report for 192.168.248.129<br/>
+Host is up (0.0091s latency).<br/>
+<br/>
+PORT &nbsp; &nbsp;STATE SERVICE<br/>
+443/tcp open &nbsp;https<br/>
+| ssl-enum-ciphers:<br/>
+| &nbsp; SSLv3:<br/>
+| &nbsp; &nbsp; ciphers:<br/>
+| &nbsp; &nbsp; &nbsp; TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA (dh 512) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA (dh 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_DHE_RSA_WITH_DES_CBC_SHA (dh 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT1024_WITH_RC2_CBC_56_MD5 (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT1024_WITH_RC4_56_MD5 (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT1024_WITH_RC4_56_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT_WITH_DES40_CBC_SHA (rsa 64) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5 (rsa 64) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT_WITH_RC4_40_MD5 (rsa 64) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_WITH_3DES_EDE_CBC_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_WITH_DES_CBC_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_WITH_RC4_128_MD5 (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_WITH_RC4_128_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; compressors:<br/>
+| &nbsp; &nbsp; &nbsp; NULL<br/>
+| &nbsp; &nbsp; cipher preference: client<br/>
+| &nbsp; &nbsp; warnings:<br/>
+| &nbsp; &nbsp; &nbsp; 64-bit block cipher 3DES vulnerable to SWEET32 attack<br/>
+| &nbsp; &nbsp; &nbsp; 64-bit block cipher DES vulnerable to SWEET32 attack<br/>
+| &nbsp; &nbsp; &nbsp; 64-bit block cipher DES40 vulnerable to SWEET32 attack<br/>
+| &nbsp; &nbsp; &nbsp; 64-bit block cipher RC2 vulnerable to SWEET32 attack<br/>
+| &nbsp; &nbsp; &nbsp; Broken cipher RC4 is deprecated by RFC 7465<br/>
+| &nbsp; &nbsp; &nbsp; CBC-mode cipher in SSLv3 (CVE-2014-3566)<br/>
+| &nbsp; &nbsp; &nbsp; Ciphersuite uses MD5 for message integrity<br/>
+| &nbsp; &nbsp; &nbsp; Export key exchange<br/>
+| &nbsp; &nbsp; &nbsp; Insecure certificate signature (MD5), score capped at F<br/>
+| &nbsp; TLSv1.0:<br/>
+| &nbsp; &nbsp; ciphers:<br/>
+| &nbsp; &nbsp; &nbsp; TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA (dh 512) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA (dh 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_DHE_RSA_WITH_DES_CBC_SHA (dh 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT1024_WITH_RC2_CBC_56_MD5 (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT1024_WITH_RC4_56_MD5 (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT1024_WITH_RC4_56_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT_WITH_DES40_CBC_SHA (rsa 64) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5 (rsa 64) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_EXPORT_WITH_RC4_40_MD5 (rsa 64) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_WITH_3DES_EDE_CBC_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_WITH_DES_CBC_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_WITH_RC4_128_MD5 (rsa 1024) - F<br/>
+| &nbsp; &nbsp; &nbsp; TLS_RSA_WITH_RC4_128_SHA (rsa 1024) - F<br/>
+| &nbsp; &nbsp; compressors:<br/>
+| &nbsp; &nbsp; &nbsp; NULL<br/>
+| &nbsp; &nbsp; cipher preference: client<br/>
+| &nbsp; &nbsp; warnings:<br/>
+| &nbsp; &nbsp; &nbsp; 64-bit block cipher 3DES vulnerable to SWEET32 attack<br/>
+| &nbsp; &nbsp; &nbsp; 64-bit block cipher DES vulnerable to SWEET32 attack<br/>
+| &nbsp; &nbsp; &nbsp; 64-bit block cipher DES40 vulnerable to SWEET32 attack<br/>
+| &nbsp; &nbsp; &nbsp; 64-bit block cipher RC2 vulnerable to SWEET32 attack<br/>
+| &nbsp; &nbsp; &nbsp; Broken cipher RC4 is deprecated by RFC 7465<br/>
+| &nbsp; &nbsp; &nbsp; Ciphersuite uses MD5 for message integrity<br/>
+| &nbsp; &nbsp; &nbsp; Export key exchange<br/>
+| &nbsp; &nbsp; &nbsp; Insecure certificate signature (MD5), score capped at F<br/>
+|_ &nbsp;least strength: F<br/>
+<br/>
+Nmap done: 1 IP address (1 host up) scanned in 14.12 seconds</body></html>

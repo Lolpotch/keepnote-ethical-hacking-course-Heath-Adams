@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>smbclient</title>
+</head><body>┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ smbclient -L \\\\192.168.248.129\\<br/>
+Server does not support EXTENDED_SECURITY &nbsp;but 'client use spnego = yes' and 'client ntlmv2 auth = yes' is set<br/>
+Anonymous login successful<br/>
+Password for [WORKGROUP\lolpotch]:<br/>
+<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; Sharename &nbsp; &nbsp; &nbsp; Type &nbsp; &nbsp; &nbsp;Comment<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; --------- &nbsp; &nbsp; &nbsp; ---- &nbsp; &nbsp; &nbsp;-------<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; IPC$ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;IPC &nbsp; &nbsp; &nbsp; IPC Service (Samba Server)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; ADMIN$ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;IPC &nbsp; &nbsp; &nbsp; IPC Service (Samba Server)<br/>
+Reconnecting with SMB1 for workgroup listing.<br/>
+Server does not support EXTENDED_SECURITY &nbsp;but 'client use spnego = yes' and 'client ntlmv2 auth = yes' is set<br/>
+Anonymous login successful<br/>
+<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; Server &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Comment<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; --------- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-------<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; KIOPTRIX &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Samba Server<br/>
+<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; Workgroup &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Master<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; --------- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-------<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; MYGROUP &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;KIOPTRIX<br/>
+<br/>
+<br/>
+┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ smbclient \\\\192.168.248.129\\ADMIN$<br/>
+Password for [WORKGROUP\lolpotch]:<br/>
+Server does not support EXTENDED_SECURITY &nbsp;but 'client use spnego = yes' and 'client ntlmv2 auth = yes' is set<br/>
+Anonymous login successful<br/>
+tree connect failed: NT_STATUS_WRONG_PASSWORD<br/>
+<br/>
+<br/>
+┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ smbclient \\\\192.168.248.129\\IPC$<br/>
+Password for [WORKGROUP\lolpotch]:<br/>
+Server does not support EXTENDED_SECURITY &nbsp;but 'client use spnego = yes' and 'client ntlmv2 auth = yes' is set<br/>
+Anonymous login successful<br/>
+Try "help" to get a list of possible commands.<br/>
+smb: \&gt;</body></html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Nikto</title>
+</head><body>┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ nikto -h http://192.168.248.129<br/>
+- Nikto v2.5.0<br/>
+---------------------------------------------------------------------------<br/>
++ Target IP: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;192.168.248.129<br/>
++ Target Hostname: &nbsp; &nbsp;192.168.248.129<br/>
++ Target Port: &nbsp; &nbsp; &nbsp; &nbsp;80<br/>
++ Start Time: &nbsp; &nbsp; &nbsp; &nbsp; 2024-02-19 16:22:33 (GMT7)<br/>
+---------------------------------------------------------------------------<br/>
++ Server: <b>Apache/1.3.20</b>&nbsp;(Unix) &nbsp;(Red-Hat/Linux) <b>mod_ssl/2.8.4 OpenSSL/0.9.6b</b><br/>
++ /: Server may leak inodes via ETags, header found with file /, inode: 34821, size: 2890, mtime: Thu Sep &nbsp;6 10:12:46 2001. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-1418<br/>
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options<br/>
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/<br/>
++ <b>Apache/1.3.20 </b>appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.<br/>
++ <b>OpenSSL/0.9.6b</b>&nbsp;appears to be outdated (current is at least 3.0.7). OpenSSL 1.1.1s is current for the 1.x branch and will be supported until Nov 11 2023.<br/>
++ <b>mod_ssl/2.8.4 </b>appears to be outdated (current is at least 2.9.6) (may depend on server version).<br/>
++ /: Apache is vulnerable to XSS via the Expect header. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2006-3918<br/>
++ OPTIONS: Allowed HTTP Methods: GET, HEAD, OPTIONS, TRACE .<br/>
++ /: HTTP TRACE method is active which suggests the host is vulnerable to XST. See: https://owasp.org/www-community/attacks/Cross_Site_Tracing<br/>
++ Apache/1.3.20 - Apache 1.x up 1.2.34 are vulnerable to a remote DoS and possible code execution.<br/>
++ Apache/1.3.20 - Apache 1.3 below 1.3.27 are vulnerable to a local buffer overflow which allows attackers to kill any process on the system.<br/>
++ Apache/1.3.20 - Apache 1.3 below 1.3.29 are vulnerable to overflows in mod_rewrite and mod_cgi.<br/>
++ mod_ssl/2.8.4 - mod_ssl 2.8.7 and lower are vulnerable to a remote buffer overflow which may allow a remote shell.<br/>
++ ///etc/hosts: The server install allows reading of any system file by adding an extra '/' to the URL.<br/>
++ /usage/: Webalizer may be installed. Versions lower than 2.01-09 vulnerable to Cross Site Scripting (XSS). See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2001-0835<br/>
++ /manual/: Directory indexing found.<br/>
++ /manual/: Web server manual found.<br/>
++ /icons/: Directory indexing found.<br/>
++ /icons/README: Apache default file found. See: https://www.vntweb.co.uk/apache-restricting-access-to-iconsreadme/<br/>
++ /test.php: This might be interesting.<br/>
++ /wp-content/themes/twentyeleven/images/headers/server.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.<br/>
++ /wordpress/wp-content/themes/twentyeleven/images/headers/server.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.<br/>
++ /wp-includes/Requests/Utility/content-post.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.<br/>
++ /wordpress/wp-includes/Requests/Utility/content-post.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.<br/>
++ /wp-includes/js/tinymce/themes/modern/Meuhy.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.<br/>
++ /wordpress/wp-includes/js/tinymce/themes/modern/Meuhy.php?filesrc=/etc/hosts: A PHP backdoor file manager was found.<br/>
++ /assets/mobirise/css/meta.php?filesrc=: A PHP backdoor file manager was found.<br/>
++ /login.cgi?cli=aa%20aa%27cat%20/etc/hosts: Some D-Link router remote command execution.<br/>
++ /shell?cat+/etc/hosts: A backdoor was identified.<br/>
++ /#wp-config.php#: #wp-config.php# file found. This file contains the credentials.<br/>
++ 8908 requests: 0 error(s) and 30 item(s) reported on remote host<br/>
++ End Time: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2024-02-19 16:24:55 (GMT7) (142 seconds)<br/>
+---------------------------------------------------------------------------<br/>
++ 1 host(s) tested</body></html>

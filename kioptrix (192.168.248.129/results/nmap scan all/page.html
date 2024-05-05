@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Nmap Scan All</title>
+</head><body>┌──(lolpotch㉿Lolpotch)-[~]<br/>
+└─$ nmap -T4 -A 192.168.248.129<br/>
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-02-19 16:10 WIB<br/>
+<br/>
+Nmap scan report for 192.168.248.129<br/>
+Host is up (0.035s latency).<br/>
+Not shown: 994 closed tcp ports (conn-refused)<br/>
+PORT &nbsp; &nbsp; &nbsp;STATE SERVICE &nbsp; &nbsp; VERSION<br/>
+22/tcp &nbsp; &nbsp;open &nbsp;ssh &nbsp; &nbsp; &nbsp; &nbsp; <b>OpenSSH 2.9p2</b>&nbsp;(protocol 1.99)<br/>
+| ssh-hostkey:<br/>
+| &nbsp; 1024 b8:74:6c:db:fd:8b:e6:66:e9:2a:2b:df:5e:6f:64:86 (RSA1)<br/>
+| &nbsp; 1024 8f:8e:5b:81:ed:21:ab:c1:80:e1:57:a3:3c:85:c4:71 (DSA)<br/>
+|_ &nbsp;1024 ed:4e:a9:4a:06:14:ff:15:14:ce:da:3a:80:db:e2:81 (RSA)<br/>
+|_sshv1: Server supports SSHv1<br/>
+80/tcp &nbsp; &nbsp;open &nbsp;http &nbsp; &nbsp; &nbsp; &nbsp;<b>Apache httpd 1.3.20</b>&nbsp;((Unix) &nbsp;(Red-Hat/Linux) <b>mod_ssl/2.8.4</b>&nbsp;<b>OpenSSL/0.9.6b</b>)<br/>
+|_http-title: Test Page for the Apache Web Server on Red Hat Linux<br/>
+| http-methods:<br/>
+|_ &nbsp;Potentially risky methods: TRACE<br/>
+|_http-server-header: Apache/1.3.20 (Unix) &nbsp;(Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b<br/>
+111/tcp &nbsp; open &nbsp;rpcbind &nbsp; &nbsp; 2 (RPC #100000)<br/>
+| rpcinfo:<br/>
+| &nbsp; program version &nbsp; &nbsp;port/proto &nbsp;service<br/>
+| &nbsp; 100000 &nbsp;2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;111/tcp &nbsp; rpcbind<br/>
+| &nbsp; 100000 &nbsp;2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;111/udp &nbsp; rpcbind<br/>
+| &nbsp; 100024 &nbsp;1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;32768/tcp &nbsp; status<br/>
+|_ &nbsp;100024 &nbsp;1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;32770/udp &nbsp; status<br/>
+139/tcp &nbsp; open &nbsp;netbios-ssn <b>Samba </b>smbd (workgroup: MYGROUP)<br/>
+443/tcp &nbsp; open &nbsp;ssl/https &nbsp; Apache/1.3.20 (Unix) &nbsp;(Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b<br/>
+|_http-title: 400 Bad Request<br/>
+x| sslv2:<br/>
+| &nbsp; SSLv2 supported<br/>
+| &nbsp; ciphers:<br/>
+| &nbsp; &nbsp; SSL2_DES_64_CBC_WITH_MD5<br/>
+| &nbsp; &nbsp; SSL2_RC4_128_WITH_MD5<br/>
+| &nbsp; &nbsp; SSL2_RC2_128_CBC_WITH_MD5<br/>
+| &nbsp; &nbsp; SSL2_RC4_64_WITH_MD5<br/>
+| &nbsp; &nbsp; SSL2_RC2_128_CBC_EXPORT40_WITH_MD5<br/>
+| &nbsp; &nbsp; SSL2_RC4_128_EXPORT40_WITH_MD5<br/>
+|_ &nbsp; &nbsp;SSL2_DES_192_EDE3_CBC_WITH_MD5<br/>
+|_<b>http-server-header</b>: <b>Apache/1.3.20</b>&nbsp;(Unix) &nbsp;(Red-Hat/Linux) <b>mod_ssl/2.8.4 OpenSSL/0.9.6b</b><br/>
+|_ssl-date: 2024-02-19T21:11:09+00:00; +12h00m04s from scanner time.<br/>
+| ssl-cert: Subject: commonName=localhost.localdomain/organizationName=SomeOrganization/stateOrProvinceName=SomeState/countryName=--<br/>
+| Not valid before: 2009-09-26T09:32:06<br/>
+|_Not valid after: &nbsp;2010-09-26T09:32:06<br/>
+32768/tcp open &nbsp;status &nbsp; &nbsp; &nbsp;1 (RPC #100024)<br/>
+<br/>
+Host script results:<br/>
+|_nbstat: NetBIOS name: KIOPTRIX, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)<br/>
+|_clock-skew: 12h00m03s<br/>
+|_smb2-time: Protocol negotiation failed (SMB2)<br/>
+<br/>
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .<br/>
+Nmap done: 1 IP address (1 host up) scanned in 33.76 seconds<br/>
+<br/>
+</body></html>
